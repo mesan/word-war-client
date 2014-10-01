@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="vendor/socket.io-client/socket.io.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+  var url = 'http://word-war.azurewebsites.net:80';
+
+  var socket = io(url, {
+    transports: ['websocket']
+  });
+
+  socket.on('connected', function (data) {
+    console.log(data);
+  });
+
+  socket.on('words', function (words) {
+    console.log(words);
+  });
+
+</script>
+</body>
+</html>

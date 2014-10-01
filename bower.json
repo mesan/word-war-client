@@ -1,0 +1,20 @@
+{
+  "name": "word-war-client",
+  "main": "index.js",
+  "version": "0.0.0",
+  "authors": [
+    "Arild Wanvik Tvergrov <arildt@mesan.no>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "socket.io-client": "~1.1.0"
+  }
+}
