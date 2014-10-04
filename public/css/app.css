@@ -66,3 +66,28 @@ html, body {
 .word-grid td:hover {
   color: #fff;
 }
+
+.word-suggestion {
+  width: 100%;
+  font-size: 1.2em;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 0 2px #000;
+}
+
+::-webkit-input-placeholder {
+  color:#666;
+  text-shadow: 0 -2px rgba(0, 0, 0, .3);
+}
+
+::-moz-placeholder {
+  color:#000;
+}
+
+:-ms-input-placeholder {
+  color:#000;
+}
+
+input:-moz-placeholder {
+  color:#444;
+}

@@ -1,7 +1,9 @@
 var wordWar = (function () {
 
-  //var socketUrl = 'http://word-war-mesan.herokuapp.com:80';
-  var socketUrl = 'http://localhost:5000';
+  var socketUrl = 'http://word-war-mesan.herokuapp.com:80';
+  //var socketUrl = 'http://localhost:5000';
+
+  var currentUsers = {};
 
   return {
     run: function () {
@@ -12,19 +14,40 @@ var wordWar = (function () {
       // Listeners
 
       socket.on('connected', function () {
-        socket.emit('login', 'anjao');
+        socket.emit('login', 'arildt');
       });
 
       socket.on('userLoggedIn', function (user) {
-        console.log(user);
-
         socket.emit('state', null);
       });
 
       socket.on('currentState', function (state) {
+        currentUsers = state.users;
         updateLetters(state.letters);
-        updateHighscore(state.users);
+        updateHighscore(convertUsersToArray(currentUsers));
       });
+
+      socket.on('scoreUpdate', function (user) {
+        currentUsers[user.name] = user;
+        user.updated = true;
+
+        updateHighscore(convertUsersToArray(currentUsers));
+      });
+
+      socket.on('newRound', function (letters) {
+        updateLetters(letters);
+      });
+
+      wordWar.layoutManager.$('html').on('keypress', '#word-input', function (event) {
+        if (event.which === 13) {
+          suggestWord(event.target.value);
+          event.target.value = '';
+        }
+      });
+
+      function suggestWord(word) {
+        socket.emit('newWord', word);
+      }
 
       function updateHighscore(users) {
         var $highscoreList = wordWar.layoutManager.$('#highscore-list');
@@ -64,6 +87,23 @@ var wordWar = (function () {
 
           $row.append($letterCell);
         }
+      }
+
+      function convertUsersToArray(usersObj) {
+        var usersArray = [];
+
+        var userNames = Object.keys(usersObj);
+
+        for (var i = 0; i < userNames.length; i++) {
+          usersArray.push(usersObj[userNames[i]]);
+        }
+
+        usersArray.sort(function (a, b) {
+          console.log('test');
+          return b.score - a.score;
+        });
+
+        return usersArray;
       }
     }
   };

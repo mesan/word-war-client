@@ -8,6 +8,16 @@
   font-weight: 100;
 }
 
+.input {
+  background-color: rgba(202, 202, 202, 0.2);
+  border: 1px solid black;
+  outline: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 4px;
+}
+
 .anim-fade-in {
   -webkit-animation: fadeIn 1s linear;
   animation: fadeIn 1s linear;

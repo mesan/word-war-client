@@ -11,10 +11,17 @@
   <section id="app" class="app">
 
     <section class="header">
-      <h1 class="app-title">Word War</h1>
+      <h1 class="app-title">
+        <i class="fa fa-quote-left"></i>
+        Word War
+      </h1>
     </section>
 
     <section class="main">
+      <input id="word-input"
+             type="text"
+             class="input word-suggestion"
+             placeholder="Skriv ord her ..."/>
       <table align="center" id="word-grid" class="word-grid"></table>
     </section>
 
@@ -23,7 +30,10 @@
   <section id="highscore" class="highscore">
 
     <section>
-      <h1 id="highscore-header" class="highscore-header">Highscore</h1>
+      <h1 id="highscore-header" class="highscore-header">
+        <i class="fa fa-star"></i>
+        Highscore
+      </h1>
     </section>
 
     <ul id="highscore-list" class="no-bullets highscore-list">
@@ -41,7 +51,7 @@
   <script type="text/javascript" src="app/main.js"></script>
 
   <script id="highscore-list-item-tpl" type="text/x-handlebars-template">
-    <li class="highscore-list-item anim-fade-in">
+    <li id="user-{{id}}" class="highscore-list-item {{#if updated}}anim-fade-in{{/if}}">
       <div class="highscore-position-container text-center">
         <div class="highscore-position">
           {{index}}
