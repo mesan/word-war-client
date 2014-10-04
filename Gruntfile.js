@@ -23,6 +23,7 @@ module.exports = function (grunt) {
         src: [
           'public/vendor/socket.io-client/socket.io.js',
           'public/vendor/jquery/dist/jquery.js',
+          'public/vendor/handlebars/handlebars.min.js',
           'public/app/**/*.js',
         ],
         options: {
@@ -68,6 +69,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', ['jasmine']);
 
-  grunt.registerTask('server', ['express', 'watch'])
+  grunt.registerTask('server', ['default', 'express', 'watch']);
 
 };

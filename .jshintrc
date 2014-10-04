@@ -15,6 +15,7 @@
     "jQuery": true,
     "window": true,
     "io": true,
+    "Handlebars": true,
     "describe": true,
     "it": true,
     "expect": true

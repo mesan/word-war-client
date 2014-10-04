@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Word War</title>
+  <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="css/common.css" />
   <link rel="stylesheet" href="css/app.css" />
   <link rel="stylesheet" href="css/highscore.css" />
@@ -14,32 +15,7 @@
     </section>
 
     <section class="main">
-      <table align="center" class="word-grid">
-        <tr>
-          <td class="anim-fade-in">A</td>
-          <td class="anim-fade-in">B</td>
-          <td class="anim-fade-in">C</td>
-          <td class="anim-fade-in">A</td>
-          <td class="anim-fade-in">B</td>
-          <td class="anim-fade-in">C</td>
-        </tr>
-        <tr>
-          <td class="anim-fade-in">A</td>
-          <td class="anim-fade-in">B</td>
-          <td class="anim-fade-in">C</td>
-          <td class="anim-fade-in">A</td>
-          <td class="anim-fade-in">B</td>
-          <td class="anim-fade-in">C</td>
-        </tr>
-        <tr>
-          <td class="anim-fade-in">A</td>
-          <td class="anim-fade-in">B</td>
-          <td class="anim-fade-in">C</td>
-          <td class="anim-fade-in">A</td>
-          <td class="anim-fade-in">B</td>
-          <td class="anim-fade-in">C</td>
-        </tr>
-      </table>
+      <table align="center" id="word-grid" class="word-grid"></table>
     </section>
 
   </section>
@@ -51,48 +27,50 @@
     </section>
 
     <ul id="highscore-list" class="no-bullets highscore-list">
-
-      <li class="highscore-list-item anim-fade-in">
-        <div class="highscore-position-container text-center">
-          <div class="highscore-position">
-            3
-          </div>
-        </div>
-        <div class="highscore-thumbnail-container">
-          <img src="http://faghelg.s3-website-eu-west-1.amazonaws.com/thomasp.png"
-               class="img-circle highscore-thumbnail"
-               alt="Ola S." />
-        </div>
-        <div class="highscore-text-container">
-          <span class="highscore-name text-light text-ellipsis">
-            thomasp</span>
-          <span class="highscore-points text-ellipsis">147 poeng</span>
-        </div>
-      </li>
-      <li class="highscore-list-item anim-fade-in">
-        <div class="highscore-position-container text-center">
-          <div class="highscore-position">
-            3
-          </div>
-        </div>
-        <div class="highscore-thumbnail-container">
-          <img src="http://faghelg.s3-website-eu-west-1.amazonaws.com/knutn.png"
-               class="img-circle highscore-thumbnail"
-               alt="Ola S." />
-        </div>
-        <div class="highscore-text-container">
-          <span class="highscore-name text-light text-ellipsis">
-            knutn</span>
-          <span class="highscore-points text-ellipsis">147 poeng</span>
-        </div>
-      </li>
     </ul>
 
   </section>
 
   <script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="vendor/handlebars/handlebars.min.js"></script>
   <script type="text/javascript" src="vendor/socket.io-client/socket.io.js"></script>
-  <script type="text/javascript" src="app/app.js"></script>
+  <script type="text/javascript" src="app/word-war.js"></script>
+  <script type="text/javascript" src="app/socket-connector.js"></script>
+  <script type="text/javascript" src="app/layout-manager.js"></script>
+  <script type="text/javascript" src="app/main.js"></script>
+
+  <script id="highscore-list-item-tpl" type="text/x-handlebars-template">
+    <li class="highscore-list-item anim-fade-in">
+      <div class="highscore-position-container text-center">
+        <div class="highscore-position">
+          {{index}}
+        </div>
+      </div>
+      <div class="highscore-thumbnail-container">
+        <img src="http://faghelg.s3-website-eu-west-1.amazonaws.com/{{name}}.png"
+             class="img-circle highscore-thumbnail" alt="" />
+      </div>
+      <div class="highscore-text-container">
+          <span class="highscore-name text-light text-ellipsis">
+            {{name}}
+          </span>
+        <span class="highscore-points text-ellipsis">
+          {{score}} poeng
+        </span>
+      </div>
+      <div class="highscore-connection-container">
+        {{#if connected}}
+          <span class="fa fa-circle user-connected"></span>
+        {{else}}
+          <span class="fa fa-circle-o user-disconnected"></span>
+        {{/if}}
+      </div>
+    </li>
+  </script>
+
+  <script id="word-grid-cell-tpl" type="text/x-handlebars-template">
+    <td class="anim-fade-in">{{this}}</td>
+  </script>
 </body>
 </html>

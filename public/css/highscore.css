@@ -47,7 +47,12 @@
 
 .highscore-text-container {
   float: left;
-  width: 58%;
+  width: 54%;
+}
+
+.highscore-connection-container {
+  float: left;
+  width: 5%;
 }
 
 .highscore-name {
@@ -62,4 +67,13 @@
 
 .highscore-points {
   display: block;
+}
+
+.user-connected {
+  color: rgb(125, 175, 125);
+  display: inline-block;
+}
+
+.user-disconnected {
+  color: #333;
 }
