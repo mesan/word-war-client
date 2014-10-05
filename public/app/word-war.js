@@ -9,7 +9,7 @@ var wordWar = (function () {
     run: function () {
 
       var $remainingTimeContainer;
-      var $consoleContainer = wordWar.layoutManager.$('#app-console');
+      var $consoleContainer = wordWar.layoutManager.$('#app-console-list');
       var $mainContainer = wordWar.layoutManager.$('#main');
       var socket;
       var userName;
@@ -122,7 +122,7 @@ var wordWar = (function () {
         var consoleEntryHtml =
           wordWar.layoutManager.template('console-entry-tpl', context);
 
-        $consoleContainer.html(consoleEntryHtml);
+        $consoleContainer.prepend(consoleEntryHtml);
       }
 
       function setUpMainView() {

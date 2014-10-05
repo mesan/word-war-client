@@ -15,7 +15,9 @@
         <i class="fa fa-quote-left"></i>
         Word War
       </h1>
-      <span id="app-console" class="app-console"></span>
+      <span class="app-console">
+        <ul id="app-console-list" class="no-bullets"></ul>
+      </span>
     </section>
 
     <section id="main" class="main">
@@ -96,11 +98,11 @@
   </script>
 
   <script id="console-entry-tpl" type="text/x-handlebars-template">
-    <span class="app-console-entry">
+    <li class="app-console-entry">
       <span class="app-console-name app-console-type-{{type}}">@{{user}}</span>
       <span class="app-console-tag">- {{tag}} -</span>
       {{message}}
-    </span>
+    </li>
   </script>
 
   <script id="main-tpl" type="text/x-handlebars-template">
