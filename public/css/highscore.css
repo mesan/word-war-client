@@ -69,9 +69,12 @@
   display: block;
 }
 
+.user-current {
+  color: rgb(242, 236, 138);
+}
+
 .user-connected {
   color: rgb(125, 175, 125);
-  display: inline-block;
 }
 
 .user-disconnected {

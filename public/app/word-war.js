@@ -22,7 +22,10 @@ var wordWar = (function () {
         });
 
         socket.on('userLoggedIn', function (user) {
-          console.log('state', user);
+          socket.emit('state', null);
+        });
+
+        socket.on('userLoggedOut', function (user) {
           socket.emit('state', null);
         });
 
@@ -143,6 +146,10 @@ var wordWar = (function () {
           var userId = userIds[i];
           var user = users[userId];
           user.index = i + 1;
+
+          if (user.name === userName) {
+            user.current = true;
+          }
 
           var $highscoreListItem =
             wordWar.layoutManager.template('highscore-list-item-tpl', user);

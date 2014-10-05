@@ -63,17 +63,21 @@
       </div>
       <div class="highscore-text-container">
           <span class="highscore-name text-light text-ellipsis">
-            {{name}}
+            {{#if current}}@{{/if}}{{name}}
           </span>
         <span class="highscore-points text-ellipsis">
           {{score}} poeng
         </span>
       </div>
       <div class="highscore-connection-container">
-        {{#if connected}}
-          <span class="fa fa-circle user-connected"></span>
+        {{#if current}}
+          <span class="fa fa-circle user-current"></span>
         {{else}}
-          <span class="fa fa-circle-o user-disconnected"></span>
+          {{#if connected}}
+            <span class="fa fa-circle user-connected"></span>
+          {{else}}
+            <span class="fa fa-circle-o user-disconnected"></span>
+          {{/if}}
         {{/if}}
       </div>
     </li>
