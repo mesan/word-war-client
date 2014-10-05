@@ -12,6 +12,7 @@ var wordWar = (function () {
       var $consoleContainer = wordWar.layoutManager.$('#app-console');
       var $mainContainer = wordWar.layoutManager.$('#main');
       var socket;
+      var userName;
 
       // Listeners
 
@@ -55,19 +56,39 @@ var wordWar = (function () {
           $remainingTimeContainer.html(remainingTimeHtml);
         });
 
-        socket.on('wordTaken', function (wordObj) {
-          console.log('wordTaken', wordObj);
+        socket.on('wordOk', function (wordObj) {
+          console.log('wordOk', wordObj);
 
           var context = {
-            user: wordObj.user,
+            user: wordObj.user.name,
             tag: 'nytt ord',
-            message: wordObj.word + ' (' + wordObj.wordScore + 'p)'
+            message: wordObj.word + ' (' + wordObj.wordScore + 'p)',
+            type: 'success'
           };
 
-          var consoleEntryHtml =
-            wordWar.layoutManager.template('console-entry-tpl', context);
+          updateConsole(context);
+        });
 
-          $consoleContainer.html(consoleEntryHtml);
+        socket.on('wordInvalid', function (word) {
+          var context = {
+            user: userName,
+            tag: 'ugyldig ord',
+            message: word + ' (-1p)',
+            type: 'warning'
+          };
+
+          updateConsole(context);
+        });
+
+        socket.on('wordTaken', function (word) {
+          var context = {
+            user: userName,
+            tag: 'ord tatt',
+            message: word + ' (-1p)',
+            type: 'warning'
+          };
+
+          updateConsole(context);
         });
       }
 
@@ -83,11 +104,23 @@ var wordWar = (function () {
       wordWar.layoutManager.$('html').on('keypress', '#user-login', function (event) {
         if (event.which === 13) {
           socket = wordWar.socketConnector.connect(socketUrl);
-          socket.emit('login', event.target.value);
+          userName = event.target.value;
+          socket.emit('login', userName);
           setUpMainView();
           initializeListeners();
         }
       });
+
+      function updateConsole(context) {
+        if (!context.type) {
+          context.type = 'info';
+        }
+
+        var consoleEntryHtml =
+          wordWar.layoutManager.template('console-entry-tpl', context);
+
+        $consoleContainer.html(consoleEntryHtml);
+      }
 
       function setUpMainView() {
         var mainHtml = wordWar.layoutManager.template('main-tpl');

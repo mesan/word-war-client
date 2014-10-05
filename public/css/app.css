@@ -68,7 +68,19 @@ html, body {
 }
 
 .app-console-tag {
-  color: rgba(255, 255, 0, .8);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.app-console-type-info {
+  color: rgba(99, 162, 255, 0.80);
+}
+
+.app-console-type-success {
+  color: rgba(110, 255, 111, 0.80);
+}
+
+.app-console-type-warning {
+  color: rgba(255, 140, 145, 0.8)
 }
 
 .main {
