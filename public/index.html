@@ -18,16 +18,11 @@
       <span id="app-console" class="app-console"></span>
     </section>
 
-    <section class="main">
-
-      <input id="word-input"
-             type="text"
+    <section id="main" class="main">
+      <input id="user-login"
              class="input word-suggestion"
-             placeholder="Skriv ord her ..."/>
-
-      <table align="center" id="word-grid" class="word-grid"></table>
-
-      <span id="remaining-time" class="remaining-time text-center"></span>
+             placeholder="Ditt brukernavn ..."
+             type="text" />
     </section>
 
   </section>
@@ -102,6 +97,17 @@
       <span class="app-console-tag">{{tag}}</span>
       {{message}}
     </span>
+  </script>
+
+  <script id="main-tpl" type="text/x-handlebars-template">
+    <input id="word-input"
+           type="text"
+           class="input word-suggestion"
+           placeholder="Skriv ord her ..."/>
+
+    <table align="center" id="word-grid" class="word-grid"></table>
+
+    <span id="remaining-time" class="remaining-time text-center"></span>
   </script>
 </body>
 </html>

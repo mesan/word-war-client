@@ -108,6 +108,11 @@ html, body {
   text-shadow: 0 2px #000;
 }
 
+.word-suggestion:focus {
+  border: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: 0 0 10px #5776ff;
+}
+
 ::-webkit-input-placeholder {
   color:#666;
   text-shadow: 0 -2px rgba(0, 0, 0, .3);

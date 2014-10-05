@@ -8,67 +8,68 @@ var wordWar = (function () {
   return {
     run: function () {
 
-      var $remainingTimeContainer = wordWar.layoutManager.$('#remaining-time');
-      var $consoleContainer = wordWar.layoutManager.$('#app-console')
-
-      var socket = wordWar.socketConnector.connect(socketUrl);
+      var $remainingTimeContainer;
+      var $consoleContainer = wordWar.layoutManager.$('#app-console');
+      var $mainContainer = wordWar.layoutManager.$('#main');
+      var socket;
 
       // Listeners
 
-      socket.on('connected', function (welcome) {
-        console.log('connected', welcome);
-        socket.emit('login', 'magnusa');
-      });
+      function initializeListeners() {
+        socket.on('connected', function (welcome) {
+          console.log('connected', welcome);
+        });
 
-      socket.on('userLoggedIn', function (user) {
-        console.log('state', user);
-        socket.emit('state', null);
-      });
+        socket.on('userLoggedIn', function (user) {
+          console.log('state', user);
+          socket.emit('state', null);
+        });
 
-      socket.on('currentState', function (state) {
-        console.log('currentState', state);
-        currentUsers = state.users;
-        updateLetters(state.letters);
-        updateHighscore(convertUsersToArray(currentUsers));
-      });
+        socket.on('currentState', function (state) {
+          console.log('currentState', state);
+          currentUsers = state.users;
+          updateLetters(state.letters);
+          updateHighscore(convertUsersToArray(currentUsers));
+        });
 
-      socket.on('scoreUpdate', function (user) {
-        console.log('scoreUpdate', user);
-        currentUsers[user.name] = user;
-        user.updated = true;
+        socket.on('scoreUpdate', function (user) {
+          console.log('scoreUpdate', user);
+          currentUsers[user.name] = user;
+          user.updated = true;
 
-        updateHighscore(convertUsersToArray(currentUsers));
-      });
+          updateHighscore(convertUsersToArray(currentUsers));
+        });
 
-      socket.on('newRound', function (letters) {
-        console.log('newRound', letters);
-        updateLetters(letters);
-      });
+        socket.on('newRound', function (letters) {
+          console.log('newRound', letters);
+          updateLetters(letters);
+        });
 
-      socket.on('remainingTime', function (secondsRemaining) {
-        console.log('remainingTime', secondsRemaining);
-        var remainingTimeHtml =
-          wordWar.layoutManager.template('remaining-time-tpl', {
-            secondsRemaining: secondsRemaining,
-            danger: secondsRemaining <= 5
-          });
-        $remainingTimeContainer.html(remainingTimeHtml);
-      });
+        socket.on('remainingTime', function (secondsRemaining) {
+          console.log('remainingTime', secondsRemaining);
+          var remainingTimeHtml =
+            wordWar.layoutManager.template('remaining-time-tpl', {
+              secondsRemaining: secondsRemaining,
+              danger: secondsRemaining <= 5
+            });
+          $remainingTimeContainer.html(remainingTimeHtml);
+        });
 
-      socket.on('wordTaken', function (wordObj) {
-        console.log('wordTaken', wordObj);
+        socket.on('wordTaken', function (wordObj) {
+          console.log('wordTaken', wordObj);
 
-        var context = {
-          user: wordObj.user,
-          tag: 'nytt ord',
-          message: wordObj.word + ' (' + wordObj.wordScore + 'p)'
-        };
+          var context = {
+            user: wordObj.user,
+            tag: 'nytt ord',
+            message: wordObj.word + ' (' + wordObj.wordScore + 'p)'
+          };
 
-        var consoleEntryHtml =
-          wordWar.layoutManager.template('console-entry-tpl', context);
+          var consoleEntryHtml =
+            wordWar.layoutManager.template('console-entry-tpl', context);
 
-        $consoleContainer.html(consoleEntryHtml);
-      });
+          $consoleContainer.html(consoleEntryHtml);
+        });
+      }
 
       wordWar.layoutManager.manageLayout('app', 'highscore');
 
@@ -78,6 +79,21 @@ var wordWar = (function () {
           event.target.value = '';
         }
       });
+
+      wordWar.layoutManager.$('html').on('keypress', '#user-login', function (event) {
+        if (event.which === 13) {
+          socket = wordWar.socketConnector.connect(socketUrl);
+          socket.emit('login', event.target.value);
+          setUpMainView();
+          initializeListeners();
+        }
+      });
+
+      function setUpMainView() {
+        var mainHtml = wordWar.layoutManager.template('main-tpl');
+        $mainContainer.html(mainHtml);
+        $remainingTimeContainer = wordWar.layoutManager.$('#remaining-time');
+      }
 
       function suggestWord(word) {
         socket.emit('newWord', word);
