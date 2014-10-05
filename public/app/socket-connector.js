@@ -1,5 +1,3 @@
-var wordWar = wordWar || {};
-
 wordWar.socketConnector = (function () {
 
   function connect(url) {
@@ -11,5 +9,4 @@ wordWar.socketConnector = (function () {
   return {
     connect: connect
   };
-
 })();

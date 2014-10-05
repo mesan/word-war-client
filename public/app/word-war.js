@@ -7,27 +7,33 @@ var wordWar = (function () {
 
   return {
     run: function () {
-      wordWar.layoutManager.manageLayout('app', 'highscore');
+
+      var $remainingTimeContainer = wordWar.layoutManager.$('#remaining-time');
+      var $consoleContainer = wordWar.layoutManager.$('#app-console')
 
       var socket = wordWar.socketConnector.connect(socketUrl);
 
       // Listeners
 
-      socket.on('connected', function () {
-        socket.emit('login', 'arildt');
+      socket.on('connected', function (welcome) {
+        console.log('connected', welcome);
+        socket.emit('login', 'magnusa');
       });
 
       socket.on('userLoggedIn', function (user) {
+        console.log('state', user);
         socket.emit('state', null);
       });
 
       socket.on('currentState', function (state) {
+        console.log('currentState', state);
         currentUsers = state.users;
         updateLetters(state.letters);
         updateHighscore(convertUsersToArray(currentUsers));
       });
 
       socket.on('scoreUpdate', function (user) {
+        console.log('scoreUpdate', user);
         currentUsers[user.name] = user;
         user.updated = true;
 
@@ -35,8 +41,36 @@ var wordWar = (function () {
       });
 
       socket.on('newRound', function (letters) {
+        console.log('newRound', letters);
         updateLetters(letters);
       });
+
+      socket.on('remainingTime', function (secondsRemaining) {
+        console.log('remainingTime', secondsRemaining);
+        var remainingTimeHtml =
+          wordWar.layoutManager.template('remaining-time-tpl', {
+            secondsRemaining: secondsRemaining,
+            danger: secondsRemaining <= 5
+          });
+        $remainingTimeContainer.html(remainingTimeHtml);
+      });
+
+      socket.on('wordTaken', function (wordObj) {
+        console.log('wordTaken', wordObj);
+
+        var context = {
+          user: wordObj.user,
+          tag: 'nytt ord',
+          message: wordObj.word + ' (' + wordObj.wordScore + 'p)'
+        };
+
+        var consoleEntryHtml =
+          wordWar.layoutManager.template('console-entry-tpl', context);
+
+        $consoleContainer.html(consoleEntryHtml);
+      });
+
+      wordWar.layoutManager.manageLayout('app', 'highscore');
 
       wordWar.layoutManager.$('html').on('keypress', '#word-input', function (event) {
         if (event.which === 13) {
@@ -68,7 +102,11 @@ var wordWar = (function () {
         }
       }
 
-      function updateLetters(letters) {
+      function updateLetters(lettersLowerCase) {
+        var letters = lettersLowerCase.map(function (letter) {
+          return letter.toUpperCase();
+        });
+
         var $wordGrid = wordWar.layoutManager.$('#word-grid');
 
         $wordGrid.empty();

@@ -15,14 +15,19 @@
         <i class="fa fa-quote-left"></i>
         Word War
       </h1>
+      <span id="app-console" class="app-console"></span>
     </section>
 
     <section class="main">
+
       <input id="word-input"
              type="text"
              class="input word-suggestion"
              placeholder="Skriv ord her ..."/>
+
       <table align="center" id="word-grid" class="word-grid"></table>
+
+      <span id="remaining-time" class="remaining-time text-center"></span>
     </section>
 
   </section>
@@ -81,6 +86,22 @@
 
   <script id="word-grid-cell-tpl" type="text/x-handlebars-template">
     <td class="anim-fade-in">{{this}}</td>
+  </script>
+
+  <script id="remaining-time-tpl" type="text/x-handlebars-template">
+      <span class="remaining-time-value {{#if danger}}remaining-time-danger{{/if}}">
+        {{secondsRemaining}}
+      </span>
+      <span class="remaining-time-label">seconds remaining</span>
+    </span>
+  </script>
+
+  <script id="console-entry-tpl" type="text/x-handlebars-template">
+    <span class="app-console-entry">
+      <span class="app-console-name">@{{user.name}}</span>
+      <span class="app-console-tag">{{tag}}</span>
+      {{message}}
+    </span>
   </script>
 </body>
 </html>

@@ -31,15 +31,48 @@ html, body {
   padding: 10px;
   border-bottom: 1px solid #000;
   background: #1b1b1e;
-}
-
-.main {
-  padding: 3%;
+  overflow: hidden;
+  position: relative;
 }
 
 .app-title {
   margin: 0;
+  float: left;
   font-size: 1em;
+  line-height: 1em;
+}
+
+.app-console {
+  display: block;
+  position: absolute;
+  width: 50%;
+  top: 0;
+  right: 0;
+  margin: 0;
+  line-height: 1em;
+  padding: 13px;
+  font-size: .8em;
+  text-align: right;
+}
+
+.app-console-entry {
+  -webkit-animation: consoleEntry .6s ease-out;
+  -animation: consoleEntry .6s ease-out;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 1);
+}
+
+.app-console-name {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+}
+
+.app-console-tag {
+  color: rgba(255, 255, 0, .8);
+}
+
+.main {
+  padding: 3%;
 }
 
 .highscore {
@@ -90,4 +123,36 @@ html, body {
 
 input:-moz-placeholder {
   color:#444;
+}
+
+.remaining-time {
+  display: block;
+}
+
+.remaining-time-value {
+  font-size: 2.5em;
+  display: block;
+  color: #fff;
+}
+
+.remaining-time-label {
+  font-size: 1em;
+  font-weight: 300;
+  color: #777;
+}
+
+.remaining-time-danger {
+  color: #ff666b;
+  text-shadow: 0 0 4px red;
+}
+
+@-webkit-keyframes consoleEntry {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+  }
 }

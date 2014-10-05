@@ -1,5 +1,3 @@
-var wordWar = wordWar || {};
-
 wordWar.layoutManager = (function (window, jQuery) {
 
   var templates = {};

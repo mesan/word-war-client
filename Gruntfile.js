@@ -24,7 +24,10 @@ module.exports = function (grunt) {
           'public/vendor/socket.io-client/socket.io.js',
           'public/vendor/jquery/dist/jquery.js',
           'public/vendor/handlebars/handlebars.min.js',
-          'public/app/**/*.js',
+          'public/app/word-war.js',
+          'public/app/layout-manager.js',
+          'public/app/socket-connector.js',
+          'public/app/main.js'
         ],
         options: {
           specs: 'test/*.spec.js'
