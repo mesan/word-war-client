@@ -1,14 +1,19 @@
 var wordWar = (function () {
 
-  var socketUrl = 'http://word-war-mesan.herokuapp.com:80';
-  //var socketUrl = 'http://localhost:5000';
-
+  var socketUrl;
   var currentUsers = {};
 
   return {
     run: function () {
 
-      var $remainingTimeContainer;
+      var host = wordWar.queryParser.getArgument('host');
+
+      if (host === 'local') {
+        socketUrl = 'http://localhost:5000';
+      } else {
+        socketUrl = 'http://word-war-mesan.herokuapp.com:80';
+      }
+
       var $mainContainer = wordWar.layoutManager.$('#main');
       var socket;
       var username;
@@ -49,12 +54,7 @@ var wordWar = (function () {
         });
 
         socket.on('remainingTime', function (secondsRemaining) {
-          var remainingTimeHtml =
-            wordWar.layoutManager.template('remaining-time-tpl', {
-              secondsRemaining: secondsRemaining,
-              danger: secondsRemaining <= 5
-            });
-          $remainingTimeContainer.html(remainingTimeHtml);
+          wordWar.remainingTime.updateRemainingTime(secondsRemaining);
         });
 
         socket.on('wordOk', function (wordObj) {
@@ -119,7 +119,6 @@ var wordWar = (function () {
       function setUpMainView() {
         var mainHtml = wordWar.layoutManager.template('main-tpl');
         $mainContainer.html(mainHtml);
-        $remainingTimeContainer = wordWar.layoutManager.$('#remaining-time');
       }
 
       function suggestWord(word) {
