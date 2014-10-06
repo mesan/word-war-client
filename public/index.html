@@ -43,15 +43,6 @@
 
   </section>
 
-  <script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="vendor/handlebars/handlebars.min.js"></script>
-  <script type="text/javascript" src="vendor/socket.io-client/socket.io.js"></script>
-  <script type="text/javascript" src="app/word-war.js"></script>
-  <script type="text/javascript" src="app/socket-connector.js"></script>
-  <script type="text/javascript" src="app/layout-manager.js"></script>
-  <script type="text/javascript" src="app/main.js"></script>
-
   <script id="highscore-list-item-tpl" type="text/x-handlebars-template">
     <li id="user-{{id}}" class="highscore-list-item {{#if updated}}anim-fade-in{{/if}}">
       <div class="highscore-position-container text-center">
@@ -115,5 +106,22 @@
 
     <span id="remaining-time" class="remaining-time text-center"></span>
   </script>
+
+  <script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="vendor/handlebars/handlebars.min.js"></script>
+  <script type="text/javascript" src="vendor/socket.io-client/socket.io.js"></script>
+
+  <script type="text/javascript" src="app/word-war.js"></script>
+
+  <script type="text/javascript" src="app/common/socket-connector.js"></script>
+  <script type="text/javascript" src="app/common/layout-manager.js"></script>
+
+  <script type="text/javascript" src="app/highscore/highscore.js"></script>
+  <script type="text/javascript" src="app/letter-grid/letter-grid.js"></script>
+  <script type="text/javascript" src="app/console/console.js"></script>
+
+  <script type="text/javascript" src="app/main.js"></script>
+
 </body>
 </html>
