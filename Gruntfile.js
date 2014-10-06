@@ -25,8 +25,11 @@ module.exports = function (grunt) {
           'public/vendor/jquery/dist/jquery.js',
           'public/vendor/handlebars/handlebars.min.js',
           'public/app/word-war.js',
-          'public/app/layout-manager.js',
-          'public/app/socket-connector.js',
+          'public/app/common/layout-manager.js',
+          'public/app/common/socket-connector.js',
+          'public/app/console/console.js',
+          'public/app/highscore/highscore.js',
+          'public/app/letter-grid/letter-grid.js',
           'public/app/main.js'
         ],
         options: {
