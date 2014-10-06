@@ -1,24 +1,21 @@
 wordWar.highscore = (function (wordWar) {
 
-  function updateHighscore(state) {
-    var users = convertUsersToArray(state.users);
+  function setHighscore(users) {
+    var usersArray = convertUsersToArray(users);
 
     var $highscoreList = wordWar.layoutManager.$('#highscore-list');
 
     $highscoreList.empty();
 
-    for (var i = 0; i < users.length; i++) {
-      var user = users[i];
+    for (var i = 0; i < usersArray.length; i++) {
+      var user = usersArray[i];
       user.index = i + 1;
 
-      if (user.name === wordWar.highscore.username) {
+      if (user.name === this.username) {
         user.current = true;
       }
 
-      var $highscoreListItem =
-        wordWar.layoutManager.template('highscore-list-item-tpl', user);
-
-      $highscoreList.append($highscoreListItem);
+      wordWar.layoutManager.appendHtml($highscoreList, 'highscore-list-item-tpl', user);
     }
   }
 
@@ -38,8 +35,13 @@ wordWar.highscore = (function (wordWar) {
     return usersArray;
   }
 
-  return {
-    username: '',
-    updateHighscore: updateHighscore
-  };
+  var highscore = {};
+
+  highscore.username = '';
+
+  Object.defineProperty(highscore, '$users', {
+    set: setHighscore
+  });
+
+  return highscore;
 })(wordWar);

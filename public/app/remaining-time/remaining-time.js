@@ -1,18 +1,25 @@
 wordWar.remainingTime = (function (wordWar) {
   var $remainingTimeContainer;
 
-  function updateRemainingTime(secondsRemaining) {
+  function setRemainingTime(secondsRemaining) {
     $remainingTimeContainer = wordWar.layoutManager.$('#remaining-time');
 
-    var remainingTimeHtml =
-      wordWar.layoutManager.template('remaining-time-tpl', {
-        secondsRemaining: secondsRemaining,
-        danger: secondsRemaining <= 5
-      });
-    $remainingTimeContainer.html(remainingTimeHtml);
+    var templateContext = {
+      secondsRemaining: secondsRemaining,
+      critical: secondsRemaining <= 5
+    };
+
+    wordWar.layoutManager.insertHtml(
+      $remainingTimeContainer,
+      'remaining-time-tpl',
+      templateContext);
   }
 
-  return {
-    updateRemainingTime: updateRemainingTime
-  };
+  var remainingTime = {};
+
+  Object.defineProperty(remainingTime, '$secondsRemaining', {
+    set: setRemainingTime
+  });
+
+  return remainingTime;
 })(wordWar);

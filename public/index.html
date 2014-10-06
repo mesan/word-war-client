@@ -81,7 +81,7 @@
   </script>
 
   <script id="remaining-time-tpl" type="text/x-handlebars-template">
-      <span class="remaining-time-value {{#if danger}}remaining-time-danger{{/if}}">
+      <span class="remaining-time-value {{#if critical}}remaining-time-critical{{/if}}">
         {{secondsRemaining}}
       </span>
       <span class="remaining-time-label">seconds remaining</span>
@@ -116,6 +116,7 @@
   <script type="text/javascript" src="app/query-parser.js"></script>
 
   <script type="text/javascript" src="app/common/socket-connector.js"></script>
+  <script type="text/javascript" src="app/common/input-manager.js"></script>
   <script type="text/javascript" src="app/common/layout-manager.js"></script>
 
   <script type="text/javascript" src="app/highscore/highscore.js"></script>

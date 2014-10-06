@@ -1,9 +1,9 @@
 wordWar.letterGrid = (function (wordWar) {
 
-  function updateLetters(state) {
+  function setLetters(letters) {
     var $wordGrid = wordWar.layoutManager.$('#word-grid');
 
-    var letters = state.letters.map(function (letter) {
+    var lettersUpperCase = letters.map(function (letter) {
       return letter.toUpperCase();
     });
 
@@ -11,21 +11,21 @@ wordWar.letterGrid = (function (wordWar) {
 
     var $row;
 
-    for (var i = 0; i < letters.length; i++) {
+    for (var i = 0; i < lettersUpperCase.length; i++) {
       if (i % 6 === 0) {
         $row = wordWar.layoutManager.$('<tr/>');
         $wordGrid.append($row);
       }
 
-      var $letterCell = wordWar.layoutManager.template(
-        'word-grid-cell-tpl', letters[i]
-      );
-
-      $row.append($letterCell);
+      wordWar.layoutManager.appendHtml($row, 'word-grid-cell-tpl', lettersUpperCase[i]);
     }
   }
 
-  return {
-    updateLetters: updateLetters
-  };
+  var letterGrid = {};
+
+  Object.defineProperty(letterGrid, '$letters', {
+    set: setLetters
+  });
+
+  return letterGrid;
 })(wordWar);

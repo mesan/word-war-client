@@ -1,11 +1,10 @@
 var wordWar = (function () {
 
-  var socketUrl;
   var currentUsers = {};
 
   return {
     run: function () {
-
+      var socketUrl;
       var host = wordWar.queryParser.getArgument('host');
 
       if (host === 'local') {
@@ -17,6 +16,27 @@ var wordWar = (function () {
       var $mainContainer = wordWar.layoutManager.$('#main');
       var socket;
       var username;
+
+      wordWar.layoutManager.manageLayout('app', 'highscore');
+
+      wordWar.inputManager.onEnterPressed('word-input', function (event) {
+        socket.emit('newWord', event.target.value);
+        event.target.value = '';
+      });
+
+      wordWar.inputManager.onEnterPressed('user-login', function (event) {
+        socket = wordWar.socketConnector.connect(socketUrl);
+
+        username = event.target.value;
+
+        wordWar.highscore.username = username;
+
+        socket.emit('login', username);
+
+        wordWar.layoutManager.insertHtml($mainContainer, 'main-tpl');
+
+        initializeListeners();
+      });
 
       // Listeners
 
@@ -35,94 +55,61 @@ var wordWar = (function () {
 
         socket.on('currentState', function (state) {
           currentUsers = state.users;
-          wordWar.letterGrid.updateLetters(state);
-          wordWar.highscore.updateHighscore(state);
+          wordWar.letterGrid.$letters = state.letters;
+          wordWar.highscore.$users = state.users;
         });
 
         socket.on('scoreUpdate', function (user) {
           console.log('scoreUpdate', user);
-
           currentUsers[user.name] = user;
           user.updated = true;
-
-          wordWar.highscore.updateHighscore({ users: currentUsers });
+          wordWar.highscore.$users = currentUsers;
+          user.updated = false;
         });
 
         socket.on('newRound', function (letters) {
           console.log('newRound', letters);
-          wordWar.letterGrid.updateLetters({ letters: letters });
+          wordWar.letterGrid.$letters = letters;
         });
 
         socket.on('remainingTime', function (secondsRemaining) {
-          wordWar.remainingTime.updateRemainingTime(secondsRemaining);
+          wordWar.remainingTime.$secondsRemaining = secondsRemaining;
         });
 
         socket.on('wordOk', function (wordObj) {
           console.log('wordOk', wordObj);
 
-          var context = {
+          var consoleEntry = {
             user: wordObj.user.name,
+            type: 'success',
             tag: 'nytt ord',
-            message: wordObj.word + ' (' + wordObj.wordScore + 'p)',
-            type: 'success'
+            message: wordObj.word + ' (' + wordObj.wordScore + 'p)'
           };
 
-          wordWar.console.newEntry(context);
+          wordWar.console.newEntry(consoleEntry);
         });
 
         socket.on('wordInvalid', function (word) {
-          var context = {
+          var consoleEntry = {
             user: username,
+            type: 'warning',
             tag: 'ugyldig ord',
-            message: word + ' (-1p)',
-            type: 'warning'
+            message: word + ' (-1p)'
           };
 
-          wordWar.console.newEntry(context);
+          wordWar.console.newEntry(consoleEntry);
         });
 
         socket.on('wordTaken', function (word) {
-          var context = {
+          var consoleEntry = {
             user: username,
+            type: 'warning',
             tag: 'ord tatt',
-            message: word + ' (-1p)',
-            type: 'warning'
+            message: word + ' (-1p)'
           };
 
-          wordWar.console.newEntry(context);
+          wordWar.console.newEntry(consoleEntry);
         });
-      }
-
-      wordWar.layoutManager.manageLayout('app', 'highscore');
-
-      wordWar.layoutManager.$('html').on('keypress', '#word-input', function (event) {
-        if (event.which === 13) {
-          suggestWord(event.target.value);
-          event.target.value = '';
-        }
-      });
-
-      wordWar.layoutManager.$('html').on('keypress', '#user-login', function (event) {
-        if (event.which === 13) {
-          socket = wordWar.socketConnector.connect(socketUrl);
-
-          username = event.target.value;
-          wordWar.highscore.username = username;
-
-          socket.emit('login', username);
-
-          setUpMainView();
-          initializeListeners();
-        }
-      });
-
-      function setUpMainView() {
-        var mainHtml = wordWar.layoutManager.template('main-tpl');
-        $mainContainer.html(mainHtml);
-      }
-
-      function suggestWord(word) {
-        socket.emit('newWord', word);
       }
     }
   };

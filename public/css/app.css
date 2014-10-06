@@ -188,7 +188,7 @@ input:-moz-placeholder {
   color: #777;
 }
 
-.remaining-time-danger {
+.remaining-time-critical {
   color: #ff666b;
   text-shadow: 0 0 4px red;
 }
