@@ -1,7 +1,7 @@
 var wordWar = (function () {
 
-  //var socketUrl = 'http://word-war-mesan.herokuapp.com:80';
-  var socketUrl = 'http://localhost:5000';
+  var socketUrl = 'http://word-war-mesan.herokuapp.com:80';
+  //var socketUrl = 'http://localhost:5000';
 
   var currentUsers = {};
 
