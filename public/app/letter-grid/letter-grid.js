@@ -22,7 +22,15 @@ wordWar.letterGrid = (function (wordWar) {
     }
   }
 
-  var letterGrid = {};
+  function onWordEntered(handler) {
+    wordWar.inputManager.onEnterPressed('word-input', function (event) {
+      handler(event);
+    });
+  }
+
+  var letterGrid = {
+    onWordEntered: onWordEntered
+  };
 
   Object.defineProperty(letterGrid, '$letters', {
     set: setLetters,

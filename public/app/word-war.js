@@ -8,12 +8,12 @@ var wordWar = (function () {
 
       var socket;
 
-      wordWar.inputManager.onWordEntered(function (event) {
+      wordWar.letterGrid.onWordEntered(function (event) {
         socket.emit('newWord', event.target.value);
         event.target.value = '';
       });
 
-      wordWar.inputManager.onUsernameEntered(function (event) {
+      wordWar.login.onUsernameEntered(function (event) {
         var socketUrl = wordWar.socketUrlResolver.resolve();
 
         socket = wordWar.socketConnector.connect(socketUrl);

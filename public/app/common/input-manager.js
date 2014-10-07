@@ -10,21 +10,7 @@ wordWar.inputManager = (function (wordWar) {
     });
   }
 
-  function onWordEntered(handler) {
-    wordWar.inputManager.onEnterPressed('word-input', function (event) {
-      handler(event);
-    });
-  }
-
-  function onUsernameEntered(handler) {
-    wordWar.inputManager.onEnterPressed('user-login', function (event) {
-      handler(event);
-    });
-  }
-
   return {
-    onEnterPressed: onEnterPressed,
-    onWordEntered: onWordEntered,
-    onUsernameEntered: onUsernameEntered
+    onEnterPressed: onEnterPressed
   };
 })(wordWar);
