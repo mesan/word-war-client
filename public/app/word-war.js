@@ -21,6 +21,7 @@ var wordWar = (function () {
         wordWar.eventListener.listen(socket);
 
         wordWar.username = wordWar.highscore.username = event.target.value;
+        wordWar.highscore.host = socketUrl;
 
         socket.emit('login', wordWar.username);
 

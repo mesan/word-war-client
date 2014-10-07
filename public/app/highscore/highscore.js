@@ -9,14 +9,15 @@ wordWar.highscore = (function (wordWar) {
     $highscoreList.empty();
 
     for (var i = 0; i < usersArray.length; i++) {
-      var user = usersArray[i];
-      user.index = i + 1;
+      var highscoreItem = usersArray[i];
+      highscoreItem.index = i + 1;
+      highscoreItem.host = this.host;
 
-      if (user.name === wordWar.highscore.username) {
-        user.current = true;
+      if (highscoreItem.name === wordWar.highscore.username) {
+        highscoreItem.current = true;
       }
 
-      wordWar.viewManager.appendHtml($highscoreList, 'highscore-list-item-tpl', user);
+      wordWar.viewManager.appendHtml($highscoreList, 'highscore-list-item-tpl', highscoreItem);
     }
   }
 
