@@ -34,7 +34,8 @@ var wordWar = (function () {
       }
 
       Object.defineProperty(wordWar, '$loggedIn', {
-        set: setLoggedIn
+        set: setLoggedIn,
+        configurable: true
       });
     }
   };

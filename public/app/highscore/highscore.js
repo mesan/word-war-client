@@ -41,7 +41,8 @@ wordWar.highscore = (function (wordWar) {
   highscore.username = '';
 
   Object.defineProperty(highscore, '$users', {
-    set: setHighscore
+    set: setHighscore,
+    configurable: true
   });
 
   return highscore;

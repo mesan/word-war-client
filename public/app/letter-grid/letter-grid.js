@@ -25,7 +25,8 @@ wordWar.letterGrid = (function (wordWar) {
   var letterGrid = {};
 
   Object.defineProperty(letterGrid, '$letters', {
-    set: setLetters
+    set: setLetters,
+    configurable: true
   });
 
   return letterGrid;

@@ -32,8 +32,7 @@ module.exports = function (grunt) {
           'public/app/console/console.js',
           'public/app/highscore/highscore.js',
           'public/app/letter-grid/letter-grid.js',
-          'public/app/remaining-time/remaining-time.js',
-          'public/app/main.js'
+          'public/app/remaining-time/remaining-time.js'
         ],
         options: {
           specs: 'test/*.spec.js'

@@ -26,7 +26,8 @@ wordWar.remainingTime = (function (wordWar) {
   var remainingTime = {};
 
   Object.defineProperty(remainingTime, '$secondsRemaining', {
-    set: setSecondsRemaining
+    set: setSecondsRemaining,
+    configurable: true
   });
 
   return remainingTime;
