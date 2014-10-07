@@ -8,12 +8,12 @@ var wordWar = (function () {
 
       var socket;
 
-      wordWar.inputManager.onEnterPressed('word-input', function (event) {
+      wordWar.inputManager.onWordEntered(function (event) {
         socket.emit('newWord', event.target.value);
         event.target.value = '';
       });
 
-      wordWar.inputManager.onEnterPressed('user-login', function (event) {
+      wordWar.inputManager.onUsernameEntered(function (event) {
         var socketUrl = wordWar.socketUrlResolver.resolve();
 
         socket = wordWar.socketConnector.connect(socketUrl);
@@ -25,18 +25,7 @@ var wordWar = (function () {
 
         socket.emit('login', wordWar.username);
 
-        wordWar.$loggedIn = true;
-      });
-
-      function setLoggedIn(loggedIn) {
-        if (loggedIn) {
-          wordWar.viewManager.insertHtml(wordWar.viewManager.element('#main'), 'logged-in-tpl');
-        }
-      }
-
-      Object.defineProperty(wordWar, '$loggedIn', {
-        set: setLoggedIn,
-        configurable: true
+        wordWar.login.$loggedIn = true;
       });
     }
   };

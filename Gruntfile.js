@@ -29,6 +29,7 @@ module.exports = function (grunt) {
           'public/app/common/input-manager.js',
           'public/app/common/layout-manager.js',
           'public/app/common/socket-url-resolver.js',
+          'public/app/login/login.js',
           'public/app/console/console.js',
           'public/app/highscore/highscore.js',
           'public/app/letter-grid/letter-grid.js',

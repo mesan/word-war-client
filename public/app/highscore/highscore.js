@@ -11,7 +11,7 @@ wordWar.highscore = (function (wordWar) {
     for (var i = 0; i < usersArray.length; i++) {
       var highscoreItem = usersArray[i];
       highscoreItem.index = i + 1;
-      highscoreItem.host = this.host;
+      highscoreItem.host = wordWar.highscore.host;
 
       if (highscoreItem.name === wordWar.highscore.username) {
         highscoreItem.current = true;
