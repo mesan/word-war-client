@@ -1,8 +1,8 @@
-wordWar.layoutManager = (function (window, jQuery) {
+wordWar.viewManager = (function (window, jQuery) {
 
   var templates = {};
 
-  function manageLayout(appContainerId, highscoreContainerId) {
+  function initialize(appContainerId, highscoreContainerId) {
     var $app = jQuery('#' + appContainerId);
     var $window = jQuery(window);
     var $highscore = jQuery('#' + highscoreContainerId);
@@ -18,7 +18,7 @@ wordWar.layoutManager = (function (window, jQuery) {
 
   function template(templateId, templateContext) {
     if (!templates[templateId]) {
-      var source = wordWar.layoutManager.$('#' + templateId).html();
+      var source = wordWar.viewManager.element('#' + templateId).html();
       templates[templateId] = Handlebars.compile(source);
     }
 
@@ -37,12 +37,13 @@ wordWar.layoutManager = (function (window, jQuery) {
     $container.append(template(templateId, templateContext));
   }
 
-  return {
-    $: jQuery,
-    manageLayout: manageLayout,
+  var layoutManager = {
+    element: jQuery,
+    initialize: initialize,
     insertHtml: insertHtml,
     prependHtml: prependHtml,
     appendHtml: appendHtml
   };
 
+  return layoutManager;
 })(window, jQuery);

@@ -84,7 +84,7 @@
       <span class="remaining-time-value {{#if critical}}remaining-time-critical{{/if}}">
         {{secondsRemaining}}
       </span>
-      <span class="remaining-time-label">seconds remaining</span>
+      <span class="remaining-time-label">sekunder igjen</span>
     </span>
   </script>
 
@@ -96,13 +96,13 @@
     </li>
   </script>
 
-  <script id="main-tpl" type="text/x-handlebars-template">
+  <script id="logged-in-tpl" type="text/x-handlebars-template">
     <input id="word-input"
            type="text"
            class="input word-suggestion"
            placeholder="Skriv ord her ..."/>
 
-    <table align="center" id="word-grid" class="word-grid"></table>
+    <table align="center" id="letter-grid" class="letter-grid"></table>
 
     <span id="remaining-time" class="remaining-time text-center"></span>
   </script>
@@ -113,11 +113,12 @@
   <script type="text/javascript" src="vendor/socket.io-client/socket.io.js"></script>
 
   <script type="text/javascript" src="app/word-war.js"></script>
-  <script type="text/javascript" src="app/query-parser.js"></script>
 
+  <script type="text/javascript" src="app/common/socket-url-resolver.js"></script>
   <script type="text/javascript" src="app/common/socket-connector.js"></script>
   <script type="text/javascript" src="app/common/input-manager.js"></script>
   <script type="text/javascript" src="app/common/layout-manager.js"></script>
+  <script type="text/javascript" src="app/event-listener.js"></script>
 
   <script type="text/javascript" src="app/highscore/highscore.js"></script>
   <script type="text/javascript" src="app/letter-grid/letter-grid.js"></script>

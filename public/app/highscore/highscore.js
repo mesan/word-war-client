@@ -1,9 +1,10 @@
 wordWar.highscore = (function (wordWar) {
+  'use strict';
 
   function setHighscore(users) {
     var usersArray = convertUsersToArray(users);
 
-    var $highscoreList = wordWar.layoutManager.$('#highscore-list');
+    var $highscoreList = wordWar.viewManager.element('#highscore-list');
 
     $highscoreList.empty();
 
@@ -11,11 +12,11 @@ wordWar.highscore = (function (wordWar) {
       var user = usersArray[i];
       user.index = i + 1;
 
-      if (user.name === this.username) {
+      if (user.name === wordWar.highscore.username) {
         user.current = true;
       }
 
-      wordWar.layoutManager.appendHtml($highscoreList, 'highscore-list-item-tpl', user);
+      wordWar.viewManager.appendHtml($highscoreList, 'highscore-list-item-tpl', user);
     }
   }
 

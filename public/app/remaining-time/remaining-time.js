@@ -1,24 +1,32 @@
 wordWar.remainingTime = (function (wordWar) {
+  'use strict';
+
   var $remainingTimeContainer;
 
-  function setRemainingTime(secondsRemaining) {
-    $remainingTimeContainer = wordWar.layoutManager.$('#remaining-time');
+  function setSecondsRemaining(secondsRemaining) {
+    getRemainingTimeContainer();
 
-    var templateContext = {
+    var remainingTimeContext = {
       secondsRemaining: secondsRemaining,
       critical: secondsRemaining <= 5
     };
 
-    wordWar.layoutManager.insertHtml(
+    wordWar.viewManager.insertHtml(
       $remainingTimeContainer,
       'remaining-time-tpl',
-      templateContext);
+      remainingTimeContext);
+  }
+
+  function getRemainingTimeContainer() {
+    if (!$remainingTimeContainer || $remainingTimeContainer.size() === 0) {
+      $remainingTimeContainer = wordWar.viewManager.element('#remaining-time');
+    }
   }
 
   var remainingTime = {};
 
   Object.defineProperty(remainingTime, '$secondsRemaining', {
-    set: setRemainingTime
+    set: setSecondsRemaining
   });
 
   return remainingTime;
