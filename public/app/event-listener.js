@@ -3,12 +3,14 @@ wordWar.eventListener = function (wordWar) {
   var socket;
 
   wordWar.letterGrid.onWordEntered(function (event) {
-    // TODO
+    // TODO Emit word to server?
   });
 
   wordWar.login.onUsernameEntered(function (event) {
     var socketUrl = wordWar.socketUrlResolver.resolve();
     socket = wordWar.socketConnector.connect(socketUrl);
+
+    // TODO Emit login to server?
 
     listenOnSocketEvents();
   });
