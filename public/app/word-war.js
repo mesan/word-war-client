@@ -1,32 +1,18 @@
 var wordWar = (function () {
-
   return {
     run: function () {
+
+      // Initialize modules.
+      wordWar.login = wordWar.login(wordWar.viewManager, wordWar.inputManager);
+      wordWar.letterGrid = wordWar.letterGrid(wordWar.viewManager, wordWar.inputManager);
+      wordWar.highscore = wordWar.highscore(wordWar.viewManager);
+      wordWar.remainingTime = wordWar.remainingTime(wordWar.viewManager);
+      wordWar.console = wordWar.console(wordWar.viewManager);
+      wordWar.eventListener = wordWar.eventListener(wordWar);
+
       wordWar.viewManager.initialize('app', 'highscore');
 
       wordWar.users = {};
-
-      var socket;
-
-      wordWar.letterGrid.onWordEntered(function (event) {
-        socket.emit('newWord', event.target.value);
-        event.target.value = '';
-      });
-
-      wordWar.login.onUsernameEntered(function (event) {
-        var socketUrl = wordWar.socketUrlResolver.resolve();
-
-        socket = wordWar.socketConnector.connect(socketUrl);
-
-        wordWar.eventListener.listen(socket);
-
-        wordWar.username = wordWar.highscore.username = event.target.value;
-        wordWar.highscore.host = socketUrl;
-
-        socket.emit('login', wordWar.username);
-
-        wordWar.login.$loggedIn = true;
-      });
     }
   };
 })();

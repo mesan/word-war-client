@@ -82,3 +82,87 @@ re-rendered. An example of an `entry` object is:
     }
 
 _Note: `type` can be either 'success', 'warning' or 'info'._
+
+# WebSocket API
+
+## Emit API
+
+### `login`
+
+ Klient ber om å logge seg inn.
+
+* name:string
+
+### `newWord`
+
+Klient foreslår et ord. Blir besvart med enten `wordOk`, `wordTaken` eller `wordInvalid`.
+
+* word:string
+
+### `state`
+
+Klient ber om nåværende tilstand i spillet. Blir besvart med `currentState`.
+
+* _Ingen parameter_
+
+## Listen API
+
+### `connected` (socket)
+Bekreftelse fra tjener på at du har koblet deg til.
+
+* welcomeMessage:string
+
+### `userLoggedIn` (alle)
+
+Ny klient har logget inn.
+
+* user:\{ name:string, score:int, connected:boolean, id:int }
+
+### `userLoggedOut` (alle)
+
+En klient forlater spillet.
+
+* user:\{ name:string, score:int, connected:boolean, id:int }
+
+
+### `newRound` (alle)
+
+Ny runde med nye bokstaver.
+
+* letters:string[]
+
+### `remainingTime` (alle)
+
+Antall sekunder igjen av runden. Sendes hvert sekund.
+
+* remainingTime:int
+
+### `wordOk` (alle)
+
+Et ord ble sendt inn og godtatt. Normalt trigget av at klient har sendt en `word`-melding.
+
+* word:string
+
+### `wordTaken` (socket)
+
+Ordet har allerede blitt tatt. Normalt trigget av at klient har sendt en `word`-melding.
+
+* word:string
+
+### `wordInvalid` (socket)
+
+Ordet er ikke gyldig. Enten fordi en eller flere bokstaver ikke er tilgjengelige, eller ordet ikke er et gyldig norsk ord. Normalt trigget av at klient har sendt en `word`-melding.
+
+* word:string
+
+### `scoreUpdate` (alle)
+
+En bruker har fått nye poeng.
+
+* user:\{ name:string, score:int, connected:boolean, id:int } 
+
+### `sorry` (socket)
+
+Feilmelding. Per i dag kun fordi du må logge inn.
+
+* errorMessage:string

@@ -1,16 +1,16 @@
-wordWar.console = (function (wordWar) {
+wordWar.console = function (viewManager) {
 
-  var $consoleContainer = wordWar.viewManager.element('#app-console-list');
+  var $consoleContainer = viewManager.element('#app-console-list');
 
   function addEntry(entry) {
     if (!entry.type) {
       entry.type = 'info';
     }
 
-    wordWar.viewManager.prependHtml($consoleContainer, 'console-entry-tpl', entry);
+    viewManager.prependHtml($consoleContainer, 'console-entry-tpl', entry);
   }
 
   return {
     addEntry: addEntry
   };
-})(wordWar);
+};

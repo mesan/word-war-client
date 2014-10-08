@@ -1,10 +1,10 @@
-wordWar.highscore = (function (wordWar) {
+wordWar.highscore = function (viewManager) {
   'use strict';
 
   function setHighscore(users) {
     var usersArray = convertUsersToArray(users);
 
-    var $highscoreList = wordWar.viewManager.element('#highscore-list');
+    var $highscoreList = viewManager.element('#highscore-list');
 
     $highscoreList.empty();
 
@@ -13,11 +13,11 @@ wordWar.highscore = (function (wordWar) {
       highscoreItem.index = i + 1;
       highscoreItem.host = wordWar.highscore.host;
 
-      if (highscoreItem.name === wordWar.highscore.username) {
+      if (highscoreItem.name === wordWar.highscore.$username) {
         highscoreItem.current = true;
       }
 
-      wordWar.viewManager.appendHtml($highscoreList, 'highscore-list-item-tpl', highscoreItem);
+      viewManager.appendHtml($highscoreList, 'highscore-list-item-tpl', highscoreItem);
     }
   }
 
@@ -37,9 +37,9 @@ wordWar.highscore = (function (wordWar) {
     return usersArray;
   }
 
-  var highscore = {};
-
-  highscore.username = '';
+  var highscore = {
+    $username: ''
+  };
 
   Object.defineProperty(highscore, '$users', {
     set: setHighscore,
@@ -47,4 +47,4 @@ wordWar.highscore = (function (wordWar) {
   });
 
   return highscore;
-})(wordWar);
+};

@@ -37,7 +37,7 @@ wordWar.viewManager = (function (window, jQuery) {
     $container.append(template(templateId, templateContext));
   }
 
-  var layoutManager = {
+  var viewManager = {
     element: jQuery,
     initialize: initialize,
     insertHtml: insertHtml,
@@ -45,5 +45,5 @@ wordWar.viewManager = (function (window, jQuery) {
     appendHtml: appendHtml
   };
 
-  return layoutManager;
+  return viewManager;
 })(window, jQuery);

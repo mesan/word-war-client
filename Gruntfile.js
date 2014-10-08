@@ -14,7 +14,7 @@ module.exports = function (grunt) {
         src: ['public/app/**/*.js']
       },
       test: {
-        src: ['test/**/*.js']
+        src: ['test/**/*.spec.js']
       }
     },
 
@@ -24,10 +24,16 @@ module.exports = function (grunt) {
           'public/vendor/socket.io-client/socket.io.js',
           'public/vendor/jquery/dist/jquery.js',
           'public/vendor/handlebars/handlebars.min.js',
+          'public/vendor/sinon/lib/sinon.js',
+          'public/vendor/sinon/lib/sinon/assert.js',
+          'public/vendor/sinon/lib/sinon/call.js',
+          'public/vendor/sinon/lib/sinon/behavior.js',
+          'public/vendor/sinon/lib/sinon/spy.js',
+          'public/vendor/sinon/lib/sinon/stub.js',
           'public/app/word-war.js',
           'public/app/common/socket-connector.js',
           'public/app/common/input-manager.js',
-          'public/app/common/layout-manager.js',
+          'public/app/common/view-manager.js',
           'public/app/common/socket-url-resolver.js',
           'public/app/login/login.js',
           'public/app/console/console.js',

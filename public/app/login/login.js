@@ -1,14 +1,14 @@
-wordWar.login = (function (wordWar) {
+wordWar.login = function (viewManager, inputManager) {
   function setLoggedIn(loggedIn) {
     if (loggedIn) {
-      wordWar.viewManager.insertHtml(
-        wordWar.viewManager.element('#main'),
+      viewManager.insertHtml(
+        viewManager.element('#main'),
         'logged-in-tpl');
     }
   }
 
   function onUsernameEntered(handler) {
-    wordWar.inputManager.onEnterPressed('user-login', function (event) {
+    inputManager.onEnterPressed('user-login', function (event) {
       handler(event);
     });
   }
@@ -23,4 +23,4 @@ wordWar.login = (function (wordWar) {
   });
 
   return login;
-})(wordWar);
+};

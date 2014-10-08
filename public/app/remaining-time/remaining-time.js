@@ -1,4 +1,4 @@
-wordWar.remainingTime = (function (wordWar) {
+wordWar.remainingTime = function (viewManager) {
   'use strict';
 
   var $remainingTimeContainer;
@@ -11,7 +11,7 @@ wordWar.remainingTime = (function (wordWar) {
       critical: secondsRemaining <= 5
     };
 
-    wordWar.viewManager.insertHtml(
+    viewManager.insertHtml(
       $remainingTimeContainer,
       'remaining-time-tpl',
       remainingTimeContext);
@@ -19,7 +19,7 @@ wordWar.remainingTime = (function (wordWar) {
 
   function getRemainingTimeContainer() {
     if (!$remainingTimeContainer || $remainingTimeContainer.size() === 0) {
-      $remainingTimeContainer = wordWar.viewManager.element('#remaining-time');
+      $remainingTimeContainer = viewManager.element('#remaining-time');
     }
   }
 
@@ -31,4 +31,4 @@ wordWar.remainingTime = (function (wordWar) {
   });
 
   return remainingTime;
-})(wordWar);
+};

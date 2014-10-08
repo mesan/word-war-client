@@ -1,8 +1,8 @@
-wordWar.letterGrid = (function (wordWar) {
+wordWar.letterGrid = function (viewManager, inputManager) {
   'use strict';
 
   function setLetters(letters) {
-    var $wordGrid = wordWar.viewManager.element('#letter-grid');
+    var $wordGrid = viewManager.element('#letter-grid');
 
     var lettersUpperCase = letters.map(function (letter) {
       return letter.toUpperCase();
@@ -14,16 +14,16 @@ wordWar.letterGrid = (function (wordWar) {
 
     for (var i = 0; i < lettersUpperCase.length; i++) {
       if (i % 6 === 0) {
-        $row = wordWar.viewManager.element('<tr/>');
+        $row = viewManager.element('<tr/>');
         $wordGrid.append($row);
       }
 
-      wordWar.viewManager.appendHtml($row, 'word-grid-cell-tpl', lettersUpperCase[i]);
+      viewManager.appendHtml($row, 'word-grid-cell-tpl', lettersUpperCase[i]);
     }
   }
 
   function onWordEntered(handler) {
-    wordWar.inputManager.onEnterPressed('word-input', function (event) {
+    inputManager.onEnterPressed('word-input', function (event) {
       handler(event);
     });
   }
@@ -38,4 +38,4 @@ wordWar.letterGrid = (function (wordWar) {
   });
 
   return letterGrid;
-})(wordWar);
+};
