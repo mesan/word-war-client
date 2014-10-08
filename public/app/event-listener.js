@@ -3,8 +3,7 @@ wordWar.eventListener = function (wordWar) {
   var socket;
 
   wordWar.letterGrid.onWordEntered(function (event) {
-    socket.emit('newWord', event.target.value);
-    event.target.value = '';
+
   });
 
   wordWar.login.onUsernameEntered(function (event) {
@@ -12,83 +11,51 @@ wordWar.eventListener = function (wordWar) {
     socket = wordWar.socketConnector.connect(socketUrl);
 
     listenOnSocketEvents();
-
-    wordWar.username = wordWar.highscore.$username = event.target.value;
-    wordWar.highscore.host = socketUrl;
-
-    socket.emit('login', wordWar.username);
-
-    wordWar.login.$loggedIn = true;
   });
 
   function listenOnSocketEvents() {
     socket.on('connected', function (welcome) {
+      // TODO
     });
 
     socket.on('userLoggedIn', function (user) {
-      socket.emit('state', null);
+      // TODO
     });
 
     socket.on('userLoggedOut', function (user) {
-      socket.emit('state', null);
+      // TODO
     });
 
     socket.on('currentState', function (state) {
-      wordWar.users = state.users;
-      wordWar.letterGrid.$letters = state.letters;
-      wordWar.highscore.$users = state.users;
+      // TODO
     });
 
     socket.on('scoreUpdate', function (user) {
-      wordWar.users[user.name] = user;
-      user.updated = true;
-      wordWar.highscore.$users = wordWar.users;
-      user.updated = false;
+      // TODO
     });
 
     socket.on('newRound', function (letters) {
-      wordWar.letterGrid.$letters = letters;
+      // TODO
     });
 
     socket.on('remainingTime', function (secondsRemaining) {
-      wordWar.remainingTime.$secondsRemaining = secondsRemaining;
+      // TODO
     });
 
     socket.on('wordOk', function (wordObj) {
-      var consoleEntry = {
-        user: wordObj.user.name,
-        type: 'success',
-        tag: 'nytt ord',
-        message: wordObj.word + ' (' + wordObj.wordScore + 'p)'
-      };
-
-      wordWar.console.addEntry(consoleEntry);
+      // TODO
     });
 
     socket.on('wordInvalid', function (word) {
-      var consoleEntry = {
-        user: wordWar.username,
-        type: 'warning',
-        tag: 'ugyldig ord',
-        message: word + ' (-1p)'
-      };
-
-      wordWar.console.addEntry(consoleEntry);
+      // TODO
     });
 
     socket.on('wordTaken', function (word) {
-      var consoleEntry = {
-        user: wordWar.username,
-        type: 'warning',
-        tag: 'ord tatt',
-        message: word + ' (-1p)'
-      };
-
-      wordWar.console.addEntry(consoleEntry);
+      // TODO
     });
 
     socket.on('sorry', function (errorMessage) {
-
+      // TODO
     });
   }
 };
