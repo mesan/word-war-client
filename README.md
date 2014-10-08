@@ -11,7 +11,8 @@
 
 ### `onUsernameEntered(handler:function)`
 The `handler` function will be called when the user hits Enter in the user name input field. The
-`handler` function will receive one argument, the submitted `username:string`.
+`handler` function will receive one argument, the event. To get the username,
+access `event.target.value`.
 
 ### `$loggedIn:boolean`
 A state variable telling the game whether the user is logged in. When set to `true`,
@@ -21,7 +22,8 @@ it will trigger the rendering of the word input field, the letter grid and the r
 
 ### `onWordEntered(handler:function)`
 The `handler` function will be called when the user hits Enter in the word input field. The
-`handler` function will receive one argument, the submitted `word:string`.
+`handler` function will receive one argument, the event. To get the word,
+access `event.target.value`.
 
 ### `$letters:string[]`
 Sets the letters displayed in the letter grid. When set, it will trigger a re-rendering of the
