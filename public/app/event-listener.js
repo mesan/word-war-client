@@ -3,7 +3,7 @@ wordWar.eventListener = function (wordWar) {
   var socket;
 
   wordWar.letterGrid.onWordEntered(function (event) {
-
+    // TODO
   });
 
   wordWar.login.onUsernameEntered(function (event) {
