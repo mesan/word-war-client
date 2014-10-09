@@ -9,7 +9,7 @@ wordWar.login = function (viewManager, inputManager) {
 
   function onUsernameEntered(handler) {
     inputManager.onEnterPressed('user-login', function (event) {
-      handler(event);
+      handler(event.target);
     });
   }
 
@@ -17,7 +17,7 @@ wordWar.login = function (viewManager, inputManager) {
     onUsernameEntered: onUsernameEntered
   };
 
-  Object.defineProperty(login, '$loggedIn', {
+  Object.defineProperty(login, 'loggedIn', {
     set: setLoggedIn,
     configurable: true
   });

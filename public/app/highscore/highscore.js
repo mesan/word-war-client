@@ -11,9 +11,9 @@ wordWar.highscore = function (viewManager) {
     for (var i = 0; i < usersArray.length; i++) {
       var highscoreItem = usersArray[i];
       highscoreItem.index = i + 1;
-      highscoreItem.host = wordWar.highscore.host;
+      highscoreItem.host = wordWar.highscore.avatarHost;
 
-      if (highscoreItem.name === wordWar.highscore.$username) {
+      if (highscoreItem.name === wordWar.highscore.username) {
         highscoreItem.current = true;
       }
 
@@ -38,10 +38,11 @@ wordWar.highscore = function (viewManager) {
   }
 
   var highscore = {
-    $username: ''
+    username: '',
+    avatarHost: ''
   };
 
-  Object.defineProperty(highscore, '$users', {
+  Object.defineProperty(highscore, 'users', {
     set: setHighscore,
     configurable: true
   });
