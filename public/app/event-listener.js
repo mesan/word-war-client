@@ -2,23 +2,25 @@ wordWar.eventListener = function (wordWar) {
 
   var socket;
 
-  wordWar.letterGrid.onWordEntered(function (event) {
-    socket.emit('newWord', event.target.value);
-    event.target.value = '';
+  wordWar.letterGrid.onWordEntered(function (inputElement) {
+    socket.emit('newWord', inputElement.value);
+    inputElement.value = '';
   });
 
-  wordWar.login.onUsernameEntered(function (event) {
+  wordWar.login.onUsernameEntered(function (inputElement) {
     var socketUrl = wordWar.socketUrlResolver.resolve();
+
+    wordWar.highscore.avatarHost = socketUrl;
+
     socket = wordWar.socketConnector.connect(socketUrl);
 
     listenOnSocketEvents();
 
-    wordWar.username = wordWar.highscore.$username = event.target.value;
-    wordWar.highscore.host = socketUrl;
+    wordWar.username = wordWar.highscore.username = inputElement.value;
 
     socket.emit('login', wordWar.username);
 
-    wordWar.login.$loggedIn = true;
+    wordWar.login.loggedIn = true;
   });
 
   function listenOnSocketEvents() {
@@ -35,23 +37,23 @@ wordWar.eventListener = function (wordWar) {
 
     socket.on('currentState', function (state) {
       wordWar.users = state.users;
-      wordWar.letterGrid.$letters = state.letters;
-      wordWar.highscore.$users = state.users;
+      wordWar.letterGrid.letters = state.letters;
+      wordWar.highscore.users = state.users;
     });
 
     socket.on('scoreUpdate', function (user) {
       wordWar.users[user.name] = user;
       user.updated = true;
-      wordWar.highscore.$users = wordWar.users;
+      wordWar.highscore.users = wordWar.users;
       user.updated = false;
     });
 
     socket.on('newRound', function (letters) {
-      wordWar.letterGrid.$letters = letters;
+      wordWar.letterGrid.letters = letters;
     });
 
     socket.on('remainingTime', function (secondsRemaining) {
-      wordWar.remainingTime.$secondsRemaining = secondsRemaining;
+      wordWar.remainingTime.secondsRemaining = secondsRemaining;
     });
 
     socket.on('wordOk', function (wordObj) {

@@ -11,9 +11,10 @@
 
 ### `onUsernameEntered(handler:function)`
 The `handler` function will be called when the user hits Enter in the user name input field. The
-`handler` function will receive one argument, the submitted `username:string`.
+`handler` function will receive one argument, the input element `inputElement:HTMLInputElement`.
+The actual username can be fetched with `inputElement.value`.
 
-### `$loggedIn:boolean`
+### `loggedIn:boolean`
 A state variable telling the game whether the user is logged in. When set to `true`,
 it will trigger the rendering of the word input field, the letter grid and the remaining time.
 
@@ -21,26 +22,31 @@ it will trigger the rendering of the word input field, the letter grid and the r
 
 ### `onWordEntered(handler:function)`
 The `handler` function will be called when the user hits Enter in the word input field. The
-`handler` function will receive one argument, the submitted `word:string`.
+`handler` function will receive one argument, the input element (`inputElement:HTMLInputElement`).
+The actual word can be fetched with `inputElement.value`.
 
-### `$letters:string[]`
+### `letters:string[]`
 Sets the letters displayed in the letter grid. When set, it will trigger a re-rendering of the
 letter grid.
 
 ## wordWar.remainingTime
 
-### `$secondsRemaining`
+### `secondsRemaining:Number`
 Sets the remaining seconds of the current round. When set, it will trigger a re-rendering of the
 timer at the bottom of the main screen.
 
 ## wordWar.highscore
 
-### `$username:string`
+### `avatarHost:string`
+Sets the host of the avatars provided by the API. Usually set to the same as the WebSocket
+server host.
+
+### `username:string`
 Sets the name of the user who is active in the current instance of the game.
 
-### `$users:object[]`
+### `users:object[]`
 Sets the users displayed in the highscore list. When set, it will trigger a re-rendering of the
-highscore list. An example of a `$users` object array is:
+highscore list. An example of a `users` object array is:
 
     [
         {
@@ -89,80 +95,88 @@ _Note: `type` can be either 'success', 'warning' or 'info'._
 
 ### `login`
 
- Klient ber om å logge seg inn.
+Client attempts to log in.
 
 * name:string
 
 ### `newWord`
 
-Klient foreslår et ord. Blir besvart med enten `wordOk`, `wordTaken` eller `wordInvalid`.
+Client proposes a word. Depending on the validity of the word, the server will answer with either
+of the following events: `wordOk`, `wordTaken` or `wordInvalid`.
 
 * word:string
 
 ### `state`
 
-Klient ber om nåværende tilstand i spillet. Blir besvart med `currentState`.
+Client requests the current state of the game. The server will answer with the `currentState`
+event.
 
 * _Ingen parameter_
 
 ## Listen API
 
 ### `connected` (socket)
-Bekreftelse fra tjener på at du har koblet deg til.
+
+Confirmation from the server that the client has connected.
 
 * welcomeMessage:string
 
-### `userLoggedIn` (alle)
+### `userLoggedIn` (all)
 
-Ny klient har logget inn.
-
-* user:\{ name:string, score:int, connected:boolean, id:int }
-
-### `userLoggedOut` (alle)
-
-En klient forlater spillet.
+A new client has logged in.
 
 * user:\{ name:string, score:int, connected:boolean, id:int }
 
+### `userLoggedOut` (all)
 
-### `newRound` (alle)
+A client logs out/leaves the game.
 
-Ny runde med nye bokstaver.
+* user:\{ name:string, score:int, connected:boolean, id:int }
+
+
+### `newRound` (all)
+
+The server announces a new round and provides a new set of letters.
 
 * letters:string[]
 
-### `remainingTime` (alle)
+### `remainingTime` (all)
 
-Antall sekunder igjen av runden. Sendes hvert sekund.
+The server announces the remaining time of the current round. The event is broadcasted every
+second.
 
 * remainingTime:int
 
-### `wordOk` (alle)
+### `wordOk` (all)
 
-Et ord ble sendt inn og godtatt. Normalt trigget av at klient har sendt en `word`-melding.
+A word was proposed by a client and verified by the server. The event is originally triggered by
+one of the clients sending a `newWord` message.
 
 * word:string
 
 ### `wordTaken` (socket)
 
-Ordet har allerede blitt tatt. Normalt trigget av at klient har sendt en `word`-melding.
+The proposed word has already been taken. The event is originally triggered by one of the clients
+sending a `newWord` message.
 
 * word:string
 
 ### `wordInvalid` (socket)
 
-Ordet er ikke gyldig. Enten fordi en eller flere bokstaver ikke er tilgjengelige, eller ordet ikke er et gyldig norsk ord. Normalt trigget av at klient har sendt en `word`-melding.
+The proposed word is not valid, either because one or more letters are not available,
+or the word is not a valid Norwegian word. The event is originally triggered by one of the
+clients sending a `newWord` message.
 
 * word:string
 
-### `scoreUpdate` (alle)
+### `scoreUpdate` (all)
 
-En bruker har fått nye poeng.
+A user has received or lost points.
 
 * user:\{ name:string, score:int, connected:boolean, id:int } 
 
 ### `sorry` (socket)
 
-Feilmelding. Per i dag kun fordi du må logge inn.
+Error message. Today, this event is only sent if the client requests something before logging in.
 
 * errorMessage:string

@@ -24,7 +24,7 @@ wordWar.letterGrid = function (viewManager, inputManager) {
 
   function onWordEntered(handler) {
     inputManager.onEnterPressed('word-input', function (event) {
-      handler(event);
+      handler(event.target);
     });
   }
 
@@ -32,7 +32,7 @@ wordWar.letterGrid = function (viewManager, inputManager) {
     onWordEntered: onWordEntered
   };
 
-  Object.defineProperty(letterGrid, '$letters', {
+  Object.defineProperty(letterGrid, 'letters', {
     set: setLetters,
     configurable: true
   });
