@@ -2,6 +2,7 @@ wordWar.highscore = function (viewManager) {
   'use strict';
 
   function setHighscore(users) {
+    /*jshint validthis:true */
     var usersArray = convertUsersToArray(users);
 
     var $highscoreList = viewManager.element('#highscore-list');
@@ -11,9 +12,9 @@ wordWar.highscore = function (viewManager) {
     for (var i = 0; i < usersArray.length; i++) {
       var highscoreItem = usersArray[i];
       highscoreItem.index = i + 1;
-      highscoreItem.host = wordWar.highscore.avatarHost;
+      highscoreItem.host = this.avatarHost;
 
-      if (highscoreItem.name === wordWar.highscore.username) {
+      if (highscoreItem.name === this.username) {
         highscoreItem.current = true;
       }
 

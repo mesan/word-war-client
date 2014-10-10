@@ -90,7 +90,7 @@ wordWar.eventListener = function (wordWar) {
     });
 
     socket.on('sorry', function (errorMessage) {
-
+      console.log(errorMessage);
     });
   }
 };

@@ -18,6 +18,7 @@
     "Handlebars": true,
     "describe": true,
     "it": true,
+    "beforeEach": true,
     "expect": true,
     "wordWar": true,
     "sinon": true
