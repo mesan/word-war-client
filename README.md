@@ -177,6 +177,11 @@ A user has received or lost points.
 
 ### `sorry` (socket)
 
-Error message. Today, this event is only sent if the client requests something before logging in.
+Sent when an error has occurred. This event is triggered in three different cases:
+
+1. You attempt to submit a word without being logged in.
+2. You attempt to login with a name that is not a string.
+3. You attempt to submit a word that is not a string.
+
 
 * errorMessage:string
