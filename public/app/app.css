@@ -1,0 +1,111 @@
+body {
+  font-family: 'Lato', 'Arial', 'sans-serif';
+  font-size: 18px;
+}
+
+html, body {
+  background: #111;
+  color: #fff;
+  height: 100%;
+  cursor: default;
+  background-image: url(../images/mesanbg-dark.jpg);
+  background-size: cover;
+}
+
+.app, .header, .main, .highscore {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.app {
+  height: 100%;
+  float: left;
+  border-right: 1px solid #000;
+  width: calc(100% - 300px);
+}
+
+.header {
+  height: 40px;
+  padding: 10px;
+  border-bottom: 1px solid #000;
+  background: #1b1b1e;
+  position: relative;
+}
+
+.header:after {
+  clear: both;
+}
+
+.app-title {
+  margin: 0;
+  float: left;
+  font-size: 1em;
+  line-height: 1em;
+}
+
+.main {
+  padding: 3%;
+}
+
+.highscore {
+  width: 300px;
+  float: right;
+}
+
+/* Common */
+
+.no-bullets {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.text-light {
+  font-weight: 100;
+}
+
+.input {
+  background-color: rgba(202, 202, 202, 0.2);
+  border: 1px solid black;
+  outline: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 4px;
+}
+
+.anim-fade-in {
+  -webkit-animation: fadeIn 1s linear;
+  animation: fadeIn 1s linear;
+}
+
+@-webkit-keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1 }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1 }
+}
+
+::-webkit-input-placeholder {
+  color:#666;
+  text-shadow: 0 -2px rgba(0, 0, 0, .3);
+}
+
+::-moz-placeholder {
+  color:#666;
+  text-shadow: 0 -2px rgba(0, 0, 0, .3);
+}
+
+:-ms-input-placeholder {
+  color:#666;
+  text-shadow: 0 -2px rgba(0, 0, 0, .3);
+}
+
+input:-moz-placeholder {
+  color:#666;
+  text-shadow: 0 -2px rgba(0, 0, 0, .3);
+}

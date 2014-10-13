@@ -1,0 +1,9 @@
+@import url(vendor/font-awesome/css/font-awesome.min.css);
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,300italic,400italic,700italic);
+@import url(vendor/bootstrap/dist/css/bootstrap.css);
+
+@import url(app/app.css);
+@import url(app/console/console.css);
+@import url(app/highscore/highscore.css);
+@import url(app/letter-grid/letter-grid.css);
+@import url(app/remaining-time/remaining-time.css);
