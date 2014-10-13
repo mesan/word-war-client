@@ -8,17 +8,11 @@ wordWar.letterGrid = function (viewManager, inputManager) {
       return letter.toUpperCase();
     });
 
-    $wordGrid.empty();
+    viewManager.clearHtml($wordGrid);
 
-    var $row;
-
-    for (var i = 0; i < lettersUpperCase.length; i++) {
-      if (i % 6 === 0) {
-        $row = viewManager.element('<tr/>');
-        $wordGrid.append($row);
-      }
-
-      viewManager.appendHtml($row, 'word-grid-cell-tpl', lettersUpperCase[i]);
+    for (var i = 0; i < lettersUpperCase.length; i+=6) {
+      var lettersRow = lettersUpperCase.splice(i, 6);
+      viewManager.appendHtml($wordGrid, 'word-grid-row-tpl', { letters: lettersRow });
     }
   }
 

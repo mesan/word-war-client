@@ -1,6 +1,6 @@
 .highscore {
   background: rgba(27, 27, 30, 0.6);
-  overflow-y: scroll;
+  height: 100%;
 }
 
 .highscore-header {
@@ -11,6 +11,8 @@
 
 .highscore-list {
   border-top: 1px solid #000;
+  height: calc(100% - 39px);
+  overflow-y: scroll;
 }
 
 .highscore-list-item {

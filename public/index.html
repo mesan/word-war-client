@@ -76,8 +76,12 @@
     </li>
   </script>
 
-  <script id="word-grid-cell-tpl" type="text/x-handlebars-template">
-    <td class="anim-fade-in">{{this}}</td>
+  <script id="word-grid-row-tpl" type="text/x-handlebars-template">
+    <tr>
+      {{#each letters}}
+      <td class="anim-fade-in">{{this}}</td>
+      {{/each}}
+    </tr>
   </script>
 
   <script id="remaining-time-tpl" type="text/x-handlebars-template">
@@ -102,13 +106,13 @@
            class="input word-suggestion"
            placeholder="Skriv ord her ..."/>
 
-    <table align="center" id="letter-grid" class="letter-grid"></table>
+    <table align="center" class="letter-grid">
+      <tbody id="letter-grid"></tbody>
+    </table>
 
     <span id="remaining-time" class="remaining-time text-center"></span>
   </script>
 
-  <script type="text/javascript" src="vendor/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript" src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="vendor/handlebars/handlebars.min.js"></script>
   <script type="text/javascript" src="vendor/socket.io-client/socket.io.js"></script>
 

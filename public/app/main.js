@@ -1,1 +1,1 @@
-wordWar.run();
+wordWar(window).run();

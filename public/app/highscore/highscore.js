@@ -7,7 +7,7 @@ wordWar.highscore = function (viewManager) {
 
     var $highscoreList = viewManager.element('#highscore-list');
 
-    $highscoreList.empty();
+    viewManager.clearHtml($highscoreList);
 
     for (var i = 0; i < usersArray.length; i++) {
       var highscoreItem = usersArray[i];

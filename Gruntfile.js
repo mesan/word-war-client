@@ -22,7 +22,6 @@ module.exports = function (grunt) {
       test: {
         src: [
           'public/vendor/socket.io-client/socket.io.js',
-          'public/vendor/jquery/dist/jquery.js',
           'public/vendor/handlebars/handlebars.min.js',
           'public/vendor/sinon/lib/sinon.js',
           'public/vendor/sinon/lib/sinon/assert.js',
@@ -31,14 +30,14 @@ module.exports = function (grunt) {
           'public/vendor/sinon/lib/sinon/spy.js',
           'public/vendor/sinon/lib/sinon/stub.js',
           'public/app/word-war.js',
-          'public/app/common/socket-connector.js',
           'public/app/common/input-manager.js',
-          'public/app/common/view-manager.js',
+          'public/app/common/socket-connector.js',
           'public/app/common/socket-url-resolver.js',
-          'public/app/login/login.js',
+          'public/app/common/view-manager.js',
           'public/app/console/console.js',
           'public/app/highscore/highscore.js',
           'public/app/letter-grid/letter-grid.js',
+          'public/app/login/login.js',
           'public/app/remaining-time/remaining-time.js'
         ],
         options: {

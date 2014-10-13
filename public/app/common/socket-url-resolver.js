@@ -1,4 +1,4 @@
-wordWar.socketUrlResolver = (function (window) {
+wordWar.socketUrlResolver = function (window) {
 
   var socketUrlLocal  = 'http://localhost:5000';
   var socketUrl       = 'http://word-war-mesan.herokuapp.com:80';
@@ -16,4 +16,4 @@ wordWar.socketUrlResolver = (function (window) {
   return {
     resolve: resolve
   };
-})(window);
+};

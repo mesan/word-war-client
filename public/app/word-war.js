@@ -1,18 +1,30 @@
-var wordWar = (function () {
+var wordWar = function (window) {
   return {
     run: function () {
 
-      // Initialize modules.
-      wordWar.login = wordWar.login(wordWar.viewManager, wordWar.inputManager);
-      wordWar.letterGrid = wordWar.letterGrid(wordWar.viewManager, wordWar.inputManager);
-      wordWar.highscore = wordWar.highscore(wordWar.viewManager);
-      wordWar.remainingTime = wordWar.remainingTime(wordWar.viewManager);
-      wordWar.console = wordWar.console(wordWar.viewManager);
-      wordWar.eventListener = wordWar.eventListener(wordWar);
-
-      wordWar.viewManager.initialize('app', 'highscore');
-
       wordWar.users = {};
+
+      // Initialize modules.
+      var viewManager = wordWar.viewManager(window);
+      var socketUrlResolver = wordWar.socketUrlResolver(window);
+      var socketConnector = wordWar.socketConnector();
+      var inputManager = wordWar.inputManager(viewManager);
+      var login = wordWar.login(viewManager, inputManager);
+      var letterGrid = wordWar.letterGrid(viewManager, inputManager);
+      var highscore = wordWar.highscore(viewManager);
+      var remainingTime = wordWar.remainingTime(viewManager);
+      var console = wordWar.console(viewManager);
+
+      wordWar.eventListener(
+        wordWar,
+        socketUrlResolver,
+        socketConnector,
+        inputManager,
+        login,
+        letterGrid,
+        highscore,
+        remainingTime,
+        console);
     }
   };
-})();
+};

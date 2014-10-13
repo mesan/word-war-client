@@ -1,4 +1,4 @@
-wordWar.socketConnector = (function () {
+wordWar.socketConnector = function () {
 
   function connect(url) {
     return io(url, {
@@ -9,4 +9,4 @@ wordWar.socketConnector = (function () {
   return {
     connect: connect
   };
-})();
+};

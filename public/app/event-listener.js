@@ -1,26 +1,35 @@
-wordWar.eventListener = function (wordWar) {
+wordWar.eventListener = function (
+  wordWar,
+  socketUrlResolver,
+  socketConnector,
+  inputManager,
+  login,
+  letterGrid,
+  highscore,
+  remainingTime,
+  console) {
 
   var socket;
 
-  wordWar.letterGrid.onWordEntered(function (inputElement) {
-    socket.emit('newWord', inputElement.value);
-    inputElement.value = '';
-  });
+  login.onUsernameEntered(function (inputElement) {
+    var socketUrl = socketUrlResolver.resolve();
 
-  wordWar.login.onUsernameEntered(function (inputElement) {
-    var socketUrl = wordWar.socketUrlResolver.resolve();
+    highscore.avatarHost = socketUrl;
 
-    wordWar.highscore.avatarHost = socketUrl;
-
-    socket = wordWar.socketConnector.connect(socketUrl);
+    socket = socketConnector.connect(socketUrl);
 
     listenOnSocketEvents();
 
-    wordWar.username = wordWar.highscore.username = inputElement.value;
+    wordWar.username = highscore.username = inputElement.value;
 
     socket.emit('login', wordWar.username);
 
-    wordWar.login.loggedIn = true;
+    login.loggedIn = true;
+
+    letterGrid.onWordEntered(function (inputElement) {
+      socket.emit('newWord', inputElement.value);
+      inputElement.value = '';
+    });
   });
 
   function listenOnSocketEvents() {
@@ -37,23 +46,23 @@ wordWar.eventListener = function (wordWar) {
 
     socket.on('currentState', function (state) {
       wordWar.users = state.users;
-      wordWar.letterGrid.letters = state.letters;
-      wordWar.highscore.users = state.users;
+      letterGrid.letters = state.letters;
+      highscore.users = state.users;
     });
 
     socket.on('scoreUpdate', function (user) {
       wordWar.users[user.name] = user;
       user.updated = true;
-      wordWar.highscore.users = wordWar.users;
+      highscore.users = wordWar.users;
       user.updated = false;
     });
 
     socket.on('newRound', function (letters) {
-      wordWar.letterGrid.letters = letters;
+      letterGrid.letters = letters;
     });
 
     socket.on('remainingTime', function (secondsRemaining) {
-      wordWar.remainingTime.secondsRemaining = secondsRemaining;
+      remainingTime.secondsRemaining = secondsRemaining;
     });
 
     socket.on('wordOk', function (wordObj) {
@@ -64,7 +73,7 @@ wordWar.eventListener = function (wordWar) {
         message: wordObj.word + ' (' + wordObj.wordScore + 'p)'
       };
 
-      wordWar.console.addEntry(consoleEntry);
+      console.addEntry(consoleEntry);
     });
 
     socket.on('wordInvalid', function (word) {
@@ -75,7 +84,7 @@ wordWar.eventListener = function (wordWar) {
         message: word + ' (-1p)'
       };
 
-      wordWar.console.addEntry(consoleEntry);
+      console.addEntry(consoleEntry);
     });
 
     socket.on('wordTaken', function (word) {
@@ -86,7 +95,7 @@ wordWar.eventListener = function (wordWar) {
         message: word + ' (-1p)'
       };
 
-      wordWar.console.addEntry(consoleEntry);
+      console.addEntry(consoleEntry);
     });
 
     socket.on('sorry', function (errorMessage) {

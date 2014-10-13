@@ -11,15 +11,12 @@ describe('highscore', function () {
 
     viewManager = {
       element: function () {},
-      appendHtml: function () {}
-    };
-
-    $highscoreList = {
-      empty: function () {}
+      appendHtml: function () {},
+      clearHtml: function () {}
     };
 
     // Stub empty method.
-    sinon.stub($highscoreList, 'empty');
+    sinon.stub(viewManager, 'clearHtml');
 
     // Stub element method and make it return our highscore list element stub.
     sinon.stub(viewManager, 'element', function () {
@@ -35,7 +32,7 @@ describe('highscore', function () {
 
   it('clears the highscore list', function () {
     highscore.users = { 'arildt': { name: 'arildt', score: 1 }};
-    expect($highscoreList.empty.called).toBe(true);
+    expect(viewManager.clearHtml.called).toBe(true);
   });
 
   it('appends a highscore list item per user', function () {

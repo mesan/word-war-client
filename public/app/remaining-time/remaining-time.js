@@ -18,7 +18,7 @@ wordWar.remainingTime = function (viewManager) {
   }
 
   function getRemainingTimeContainer() {
-    if (!$remainingTimeContainer || $remainingTimeContainer.size() === 0) {
+    if (!$remainingTimeContainer) {
       $remainingTimeContainer = viewManager.element('#remaining-time');
     }
   }

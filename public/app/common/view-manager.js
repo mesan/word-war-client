@@ -1,24 +1,12 @@
-wordWar.viewManager = (function (window, jQuery) {
+wordWar.viewManager = function (window) {
+
+  var document = window.document;
 
   var templates = {};
 
-  function initialize(appContainerId, highscoreContainerId) {
-    var $app = jQuery('#' + appContainerId);
-    var $window = jQuery(window);
-    var $highscore = jQuery('#' + highscoreContainerId);
-
-    $window.resize(adjustAppWidth);
-
-    adjustAppWidth();
-
-    function adjustAppWidth() {
-      $app.width($window.width() - $highscore.width() - 1);
-    }
-  }
-
   function template(templateId, templateContext) {
     if (!templates[templateId]) {
-      var source = wordWar.viewManager.element('#' + templateId).html();
+      var source = document.querySelector('#' + templateId).innerHTML;
       templates[templateId] = Handlebars.compile(source);
     }
 
@@ -26,24 +14,33 @@ wordWar.viewManager = (function (window, jQuery) {
   }
 
   function insertHtml($container, templateId, templateContext) {
-    $container.html(template(templateId, templateContext));
+    $container.innerHTML = template(templateId, templateContext);
   }
 
   function prependHtml($container, templateId, templateContext) {
-    $container.prepend(template(templateId, templateContext));
+    $container.innerHTML = template(templateId, templateContext) + $container.innerHTML;
   }
 
   function appendHtml($container, templateId, templateContext) {
-    $container.append(template(templateId, templateContext));
+    $container.innerHTML += template(templateId, templateContext);
+  }
+
+  function clearHtml($container) {
+    $container.innerHTML = '';
+  }
+
+  function createElement(elementName) {
+    return document.createElement(elementName);
   }
 
   var viewManager = {
-    element: jQuery,
-    initialize: initialize,
+    element: function (selector) { return document.querySelector(selector); },
     insertHtml: insertHtml,
     prependHtml: prependHtml,
-    appendHtml: appendHtml
+    appendHtml: appendHtml,
+    clearHtml: clearHtml,
+    createElement: createElement
   };
 
   return viewManager;
-})(window, jQuery);
+};
